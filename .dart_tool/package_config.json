@@ -212,6 +212,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "gap",
+      "rootUri": "file:///Users/anik/.pub-cache/hosted/pub.dev/gap-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "get",
       "rootUri": "file:///Users/anik/.pub-cache/hosted/pub.dev/get-4.6.5",
       "packageUri": "lib/",
@@ -542,7 +548,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-11-19T08:57:55.192504Z",
+  "generated": "2023-11-19T09:30:48.051068Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

@@ -4,6 +4,7 @@ class LocalStorage {
   final box = GetStorage();
 
   String token = 'token';
+  String highestScore = 'token';
 
 
   setToken(String value) {

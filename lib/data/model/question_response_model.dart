@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-QuestionResponseModel questionResponseModelFromJson(String str) => QuestionResponseModel.fromJson(json.decode(str));
+QuestionResponseModel questionResponseModelFromJson(String str) =>
+    QuestionResponseModel.fromJson(json.decode(str));
 
-String questionResponseModelToJson(QuestionResponseModel data) => json.encode(data.toJson());
+String questionResponseModelToJson(QuestionResponseModel data) =>
+    json.encode(data.toJson());
 
 class QuestionResponseModel {
   List<Question>? questions;
@@ -18,99 +20,91 @@ class QuestionResponseModel {
         questions: questions ?? this.questions,
       );
 
-  factory QuestionResponseModel.fromJson(Map<String, dynamic> json) => QuestionResponseModel(
-    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
-  );
+  factory QuestionResponseModel.fromJson(Map<String, dynamic> json) =>
+      QuestionResponseModel(
+        questions: json["questions"] == null
+            ? []
+            : List<Question>.from(
+                json["questions"]!.map((x) => Question.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
-  };
+        "questions": questions == null
+            ? []
+            : List<dynamic>.from(questions!.map((x) => x.toJson())),
+      };
 }
 
 class Question {
   String? question;
-  Answers? answers;
+  //Answers? answers;
+  List<MapEntry<String, dynamic>>? answerList;
   String? questionImageUrl;
   String? correctAnswer;
   int? score;
+  String? correctAnswersWithValue;
 
   Question({
     this.question,
-    this.answers,
+    //this.answers,
+    this.answerList,
     this.questionImageUrl,
     this.correctAnswer,
     this.score,
+    this.correctAnswersWithValue,
   });
 
   Question copyWith({
     String? question,
-    Answers? answers,
+    //Answers? answers,
+    List<MapEntry<String, dynamic>>? answerList,
     String? questionImageUrl,
     String? correctAnswer,
     int? score,
+    String? correctAnswersWithValue,
   }) =>
       Question(
         question: question ?? this.question,
-        answers: answers ?? this.answers,
+        //answers: answers ?? this.answers,
+        answerList: (answerList ?? this.answerList),
         questionImageUrl: questionImageUrl ?? this.questionImageUrl,
         correctAnswer: correctAnswer ?? this.correctAnswer,
         score: score ?? this.score,
+        correctAnswersWithValue: correctAnswersWithValue ?? this.correctAnswersWithValue,
       );
 
-  factory Question.fromJson(Map<String, dynamic> json) => Question(
-    question: json["question"],
-    answers: json["answers"] == null ? null : Answers.fromJson(json["answers"]),
-    questionImageUrl: json["questionImageUrl"],
-    correctAnswer: json["correctAnswer"],
-    score: json["score"],
-  );
+  factory Question.fromJson(Map<String, dynamic> json) {
+    final dynamic questionImageUrlChecking = json['questionImageUrl'];
+    final String result = questionImageUrlChecking ?? '';
+    final String? tempCorrectAnswer = json['correctAnswer'];
+    List<MapEntry<String, dynamic>>? answerListT = json["answers"].entries.toList();
+    String tempCorrectAnswerWithValue = '';
+    for (var entry in answerListT!) {
+      if (entry.key == tempCorrectAnswer) {
+        tempCorrectAnswerWithValue = entry.value;
+      }
+    }
+    return Question(
+      question: json["question"],
+      //answers: json["answers"] == null ? null : Answers.fromJson(json["answers"]),
+      answerList: answerListT,
+      questionImageUrl: result ?? "",
+      correctAnswer: tempCorrectAnswer,
+      score: json["score"],
+      correctAnswersWithValue: tempCorrectAnswerWithValue
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-    "question": question,
-    "answers": answers?.toJson(),
-    "questionImageUrl": questionImageUrl,
-    "correctAnswer": correctAnswer,
-    "score": score,
-  };
+        "question": question,
+        //"answerss": answers?.toJson(),
+        "answers": answerList,
+        "questionImageUrl": questionImageUrl,
+        "correctAnswer": correctAnswer,
+        "score": score,
+        "correctAnswersWithValue": correctAnswersWithValue,
+      };
+  // @override
+  // String toString() => 'questionImageUrl: $questionImageUrl, ';
 }
 
-class Answers {
-  String? a;
-  String? b;
-  String? c;
-  String? d;
-
-  Answers({
-    this.a,
-    this.b,
-    this.c,
-    this.d,
-  });
-
-  Answers copyWith({
-    String? a,
-    String? b,
-    String? c,
-    String? d,
-  }) =>
-      Answers(
-        a: a ?? this.a,
-        b: b ?? this.b,
-        c: c ?? this.c,
-        d: d ?? this.d,
-      );
-
-  factory Answers.fromJson(Map<String, dynamic> json) => Answers(
-    a: json["A"],
-    b: json["B"],
-    c: json["C"],
-    d: json["D"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "A": a,
-    "B": b,
-    "C": c,
-    "D": d,
-  };
-}

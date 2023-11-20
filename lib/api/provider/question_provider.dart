@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as DIO;
@@ -11,7 +9,7 @@ class QuestionProvider extends GetxService {
 
   final ApiClient _apiClient = Get.find();
 
-  List<QuestionResponseModel> photoListForStoringFromHive = <QuestionResponseModel>[];
+  List<Question> photoListForStoringFromHive = <Question>[];
 
 
   Future getAllQuestionListProvider () async
@@ -20,10 +18,10 @@ class QuestionProvider extends GetxService {
       DIO.Response response = await _apiClient.request(Api.GET_ALL_QUESTION_LIST_URL, Method.GET);
       if(response.statusCode == 200)
       {
-        List<QuestionResponseModel> questionList = <QuestionResponseModel>[];
+        List<Question> questionList = <Question>[];
         QuestionResponseModel questionResponseModel = QuestionResponseModel.fromJson(response.data);
-        questionList.add(questionResponseModel);
-        return questionList;
+        questionList.addAll(questionResponseModel.questions!);
+        return questionList..shuffle();
       }
       else{
         Get.snackbar(response.statusCode.toString(), response.statusMessage.toString(),snackPosition: SnackPosition.BOTTOM);
