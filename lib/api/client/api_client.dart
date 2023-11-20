@@ -3,9 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:question_app/core/api_endpoints.dart';
 
-
-
-
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
 class ApiClient extends GetxService {
@@ -30,14 +27,10 @@ class ApiClient extends GetxService {
 
   void initInterceptors() {
     _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-      print('REQUEST[${options.method}] => PATH: ${Api.API_BASE_URL}${options.path} '
-          '=> Parameters : ${options.queryParameters}, => HEADERS: ${options.headers}');
       return handler.next(options);
     }, onResponse: (response, handler) {
-      //print('RESPONSE[${response.statusCode}] => DATA: ${response.data}');
       return handler.next(response);
     }, onError: (err, handler) {
-      print('ERROR[${err.response?.statusCode}]');
       return handler.next(err);
     }));
   }

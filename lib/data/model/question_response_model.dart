@@ -37,7 +37,6 @@ class QuestionResponseModel {
 
 class Question {
   String? question;
-  //Answers? answers;
   List<MapEntry<String, dynamic>>? answerList;
   String? questionImageUrl;
   String? correctAnswer;
@@ -46,7 +45,6 @@ class Question {
 
   Question({
     this.question,
-    //this.answers,
     this.answerList,
     this.questionImageUrl,
     this.correctAnswer,
@@ -56,7 +54,6 @@ class Question {
 
   Question copyWith({
     String? question,
-    //Answers? answers,
     List<MapEntry<String, dynamic>>? answerList,
     String? questionImageUrl,
     String? correctAnswer,
@@ -65,7 +62,6 @@ class Question {
   }) =>
       Question(
         question: question ?? this.question,
-        //answers: answers ?? this.answers,
         answerList: (answerList ?? this.answerList),
         questionImageUrl: questionImageUrl ?? this.questionImageUrl,
         correctAnswer: correctAnswer ?? this.correctAnswer,
@@ -86,7 +82,6 @@ class Question {
     }
     return Question(
       question: json["question"],
-      //answers: json["answers"] == null ? null : Answers.fromJson(json["answers"]),
       answerList: answerListT,
       questionImageUrl: result ?? "",
       correctAnswer: tempCorrectAnswer,
@@ -97,14 +92,11 @@ class Question {
 
   Map<String, dynamic> toJson() => {
         "question": question,
-        //"answerss": answers?.toJson(),
         "answers": answerList,
         "questionImageUrl": questionImageUrl,
         "correctAnswer": correctAnswer,
         "score": score,
         "correctAnswersWithValue": correctAnswersWithValue,
       };
-  // @override
-  // String toString() => 'questionImageUrl: $questionImageUrl, ';
 }
 

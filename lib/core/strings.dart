@@ -8,4 +8,7 @@ class AppStrings{
   static const String CURRENT_SCORE_TITLE = "Current Score";
   static const String NUMBER_OF_QUESTIONS = "Number of questions";
   static const String NO_DATA = "No data is available";
+  static const String LOADING = "Loading";
+  static const String ANSWER_TITLE = "Answer [Please select any of this]";
+  static const String SCORE_TITLE = "Score";
 }

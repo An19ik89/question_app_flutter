@@ -3,16 +3,14 @@ import 'package:get_storage/get_storage.dart';
 class LocalStorage {
   final box = GetStorage();
 
-  String token = 'token';
-  String highestScore = 'token';
+  String highestScore = 'highest_score';
 
-
-  setToken(String value) {
-    box.write(token, value);
+  setHighestScore(int score) {
+    box.write(highestScore, score);
   }
 
-  String? getToken() {
-    return box.read(token);
+  int? getHighestScore() {
+    return box.read(highestScore);
   }
 
 }
